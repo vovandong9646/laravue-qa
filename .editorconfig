@@ -1,15 +1,31 @@
-root = true
-
 [*]
-charset = utf-8
-end_of_line = lf
-insert_final_newline = true
-indent_style = space
-indent_size = 4
-trim_trailing_whitespace = true
+charset=utf-8
+end_of_line=crlf
+insert_final_newline=false
+indent_style=space
+tab_width=2
 
-[*.md]
-trim_trailing_whitespace = false
+[{phpunit.xml.dist,*.jhm,*.xslt,*.xul,*.rng,*.xsl,*.xsd,*.ant,*.tld,*.fxml,*.jrxml,*.xml,*.jnlp,*.wsdl}]
+indent_style=space
+indent_size=4
 
-[*.{yml,yaml}]
-indent_size = 2
+[{composer.lock,.babelrc,.stylelintrc,.eslintrc,jest.config,*.json,*.jsb3,*.jsb2,*.bowerrc}]
+indent_style=space
+indent_size=2
+
+[.editorconfig]
+indent_style=space
+indent_size=4
+
+[*.scss]
+indent_style=space
+indent_size=2
+
+[{*.ats,*.ts}]
+indent_style=space
+indent_size=4
+
+[{*.yaml,*.yml}]
+indent_style=space
+indent_size=2
+
