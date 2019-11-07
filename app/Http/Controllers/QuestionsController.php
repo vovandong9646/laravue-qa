@@ -42,16 +42,19 @@ class QuestionsController extends Controller
     return redirect()->route('questions.index')->with('success', 'Your Question has been created');
   }
 
-  /**
-   * Display the specified resource.
-   *
-   * @param \App\Question $question
-   * @return \Illuminate\Http\Response
-   */
-  public function show(Question $question)
-  {
-    //
-  }
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Question  $question
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Question $question)
+    {
+      // $question->views = $question->views + 1;
+      // $question->save();
+      $question->increment('views');
+        return view('questions.show', compact('question'));
+    }
 
   /**
    * Show the form for editing the specified resource.
