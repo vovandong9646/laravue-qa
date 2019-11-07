@@ -7,7 +7,7 @@ tab_width=2
 
 [{phpunit.xml.dist,*.jhm,*.xslt,*.xul,*.rng,*.xsl,*.xsd,*.ant,*.tld,*.fxml,*.jrxml,*.xml,*.jnlp,*.wsdl}]
 indent_style=space
-indent_size=4
+indent_size=2
 
 [{composer.lock,.babelrc,.stylelintrc,.eslintrc,jest.config,*.json,*.jsb3,*.jsb2,*.bowerrc}]
 indent_style=space
@@ -15,7 +15,7 @@ indent_size=2
 
 [.editorconfig]
 indent_style=space
-indent_size=4
+indent_size=2
 
 [*.scss]
 indent_style=space
@@ -23,7 +23,7 @@ indent_size=2
 
 [{*.ats,*.ts}]
 indent_style=space
-indent_size=4
+indent_size=2
 
 [{*.yaml,*.yml}]
 indent_style=space
