@@ -9,6 +9,12 @@ use Illuminate\Support\Facades\Gate;
 
 class QuestionsController extends Controller
 {
+
+  public function __construct()
+  {
+    $this->middleware('auth', ['except' => ['index', 'show']]);
+  }
+
   /**
    * Display a listing of the resource.
    *
@@ -68,6 +74,8 @@ class QuestionsController extends Controller
   public function edit(Question $question)
   {
 //      $question = Question::findorFail(id);
+//    nếu không muốn sử dụng Gate để check thì ta có thể sử dụng policies => xem ở lesson11-b để biết cách sử dụng
+    // cái Gate này sẽ mapping với cái gate định nghĩa trong AuthServiceProvider.php
     if(Gate::denies('update-question', $question)) {
       // nếu user đang login thì khi bấm vào edit button của nó mới hiển thị trang edit
       return abort(403, 'Access Denies');
