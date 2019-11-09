@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\AskQuestionRequest;
 use App\Question;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class QuestionsController extends Controller
 {
@@ -61,10 +62,16 @@ class QuestionsController extends Controller
    *
    * @param \App\Question $question
    * @return \Illuminate\Http\Response
+   * 'update-question' được tạo ở app/providers/AuthServiceProvider.php
+   *  method Gate::allows('update-question', $question) cho phép, còn denies là không cho phép
    */
   public function edit(Question $question)
   {
 //      $question = Question::findorFail(id);
+    if(Gate::denies('update-question', $question)) {
+      // nếu user đang login thì khi bấm vào edit button của nó mới hiển thị trang edit
+      return abort(403, 'Access Denies');
+    }
     return view('questions.edit', compact('question'));
   }
 
@@ -77,6 +84,10 @@ class QuestionsController extends Controller
    */
   public function update(AskQuestionRequest $request, Question $question)
   {
+    if(Gate::denies('update-question', $question)) {
+      // nếu user đang login thì khi bấm vào edit button của nó mới hiển thị trang edit
+      return abort(403, 'Access Denies');
+    }
     $question->update($request->only('title', 'body'));
     return redirect()->route('questions.index')->with('success', 'Your Question has been updated');
   }
@@ -89,6 +100,10 @@ class QuestionsController extends Controller
    */
   public function destroy(Question $question)
   {
+    if(Gate::denies('delete-question', $question)) {
+      // nếu user đang login thì khi bấm vào edit button của nó mới hiển thị trang edit
+      return abort(403, 'Access Denies');
+    }
 //    $question->destroy($question->id);
     $question->delete();
     return redirect()->route('questions.index')->with('success', 'Your Question has been removed');

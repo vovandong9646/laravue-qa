@@ -25,6 +25,15 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        // viết 1 cái cổng để gọi để phân quyền
+      // nếu không phải thằng user đang login thì sẽ không xử lý cái question không phải của nó
+      // chính nó mới cho phép sửa của chính nó, không cho phép sửa của người khác
+      Gate::define("update-question", function($user, $question) {
+        return $user->id == $question->user_id;
+      });
+
+      Gate::define("delete-question", function($user, $question) {
+        return $user->id == $question->user_id;
+      });
     }
 }
