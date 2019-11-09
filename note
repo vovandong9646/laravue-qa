@@ -1,0 +1,17 @@
+- lesson11-b:
+  + b1: tạo QuestionPolicy từ câu lệnh php artisan make:policy QuestionPolicy --model=Question
+  + b2: trong QuestionPolicy: xóa hết hàm không cần thiết, chỉ để lại hàm cần dùng
+  + b3: trong method ở QuestionPolicy: bỏ điều kiện cần check vào (ví dụ method update)
+  + b4: làm sao để sử dụng method QuestionPolicy này?
+    ++ trong app/Providers/AuthServiceProvider.php:
+      ++ tại biến $policies, ta khai báo 1 cái Question::class => QuestionPolicy::class (Question::class là model của mình) theo như ví dụ mẫu họ đã comment lại
+  + b5: Trong QuestionsController: tại hàm cần sử dụng ta sẽ gọi như sau (ví dụ hàm updateQuestion)
+      ++ $this->authorize('update', $question) => 'update' là method update của QuestionPolicy
+      ++ chỉ cần gọi như vậy là được, tự động nó sẽ check điều kiện trong method update của QuestionPolicy
+  + b6: trong file index.blade.php:
+      ++ ta cũng sử dụng Auth::user()->can('update', $question) => update cũng là method update của QuestionPolicy
+      ++ nếu trong QuestionsController có $this->middleware('auth') => thì nếu chưa login thì nó sẽ trả về trang login
+      ++ nếu như ta sử dụng $this->middleware('auth', ['except'=>'index', 'show']);
+        ++ thì khi vào trang index(/questions) và show(/question/1) thì nó sẽ không tự redirect về trang login
+        ++ nhưng nó sẽ bị lỗi tại vì lúc này Auth::user() đang null (do chưa login) và không thể gọi hàm can() được
+        ++ solution: đổi @if(Auth::user()->can('update', $question)) thành @can('update', $question) @endcan
