@@ -40,4 +40,14 @@ class Question extends Model
   public function getBodyHtmlAttribute() {
     return \Parsedown::instance()->text($this->body);
   }
+
+  public function answersMethodRelationship() {
+    return $this->hasMany(Answer::class);
+  }
+
+  // get value from column answers in db
+  // column answers : câu hỏi đó có bao nhiêu câu trả lời
+  public function getAnswersCountAttribute() {
+    return $this->answers;
+  }
 }

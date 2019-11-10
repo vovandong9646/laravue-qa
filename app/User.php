@@ -47,4 +47,15 @@ class User extends Authenticatable
     return "#";
 //    return route("users.show", $this->id);
   }
+
+  public function answers()
+  {
+    return $this->hasMany(Answer::class);
+  }
+
+  public function getAvatarAttribute() {
+    $email = $this->email;
+    $size = 30;
+    return "https://www.gravatar.com/avatar/" . md5( strtolower( trim( $email ) ) ) . "?s=" . $size;
+  }
 }
