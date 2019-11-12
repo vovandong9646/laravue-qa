@@ -17,9 +17,14 @@
                             <a title="This answer is not useful" class="vote-down off">
                                 <i class="fas fa-caret-down fa-3x"></i>
                             </a>
-                            <a title="Mark this answer as best answer" class="vote-accepted mt-2">
-                                <i class="fas fa-check fa-2x"></i>
-                            </a>
+                            @can('accept-question', $question)
+                                <a onclick="event.preventDefault();document.getElementById('check_best_answer_{{ $answer->id }}').submit();" title="Mark this answer as best answer" class="{{ $answer->status }} mt-2">
+                                    <i class="fas fa-check fa-2x"></i>
+                                </a>
+                                <form style="display:none;" action="{{ route('answers.accept', $answer->id) }}" id="check_best_answer_{{ $answer->id }}" method="POST">
+                                    @csrf
+                                </form>
+                            @endcan
                         </div>
                         <div class="media-body">
                             {!! $answer->body_html !!}

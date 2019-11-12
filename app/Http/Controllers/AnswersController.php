@@ -69,6 +69,9 @@ class AnswersController extends Controller
     $this->authorize('delete', $answer);
     $answer->delete();
     $question->answers--;
+    if($question->best_answer_id == $answer->id) {
+      $question->best_answer_id = NULL;
+    }
     $question->save();
     return redirect()->route('questions.show', $question->slug)->with('success', 'your answer has been deleted successfully');
   }

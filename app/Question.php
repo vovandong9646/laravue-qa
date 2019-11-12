@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Answer;
 
 class Question extends Model
 {
@@ -49,5 +50,10 @@ class Question extends Model
   // column answers : câu hỏi đó có bao nhiêu câu trả lời
   public function getAnswersCountAttribute() {
     return $this->answers;
+  }
+
+  public function updateBestAnswer(Answer $answer) {
+    $this->best_answer_id = $answer->id;
+    $this->save();
   }
 }

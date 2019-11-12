@@ -30,3 +30,4 @@ Route::get('/questions/{slug}', 'QuestionsController@show')->name('questions.sho
 // các hàm trên không cần thiết
 Route::resource('questions.answers', 'AnswersController')->except(['index', 'show', 'create']);
 //Route::post('/questions/{question}/answers', 'AnswerController@store')->name('answers.store');
+Route::post('/answers/{answer}/accept', 'AcceptAnswerController')->name('answers.accept');
