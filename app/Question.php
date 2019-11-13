@@ -56,4 +56,8 @@ class Question extends Model
     $this->best_answer_id = $answer->id;
     $this->save();
   }
+
+  public function votes() {
+    return $this->morphToMany(User::class, 'votable');
+  }
 }

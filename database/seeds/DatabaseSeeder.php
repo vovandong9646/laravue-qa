@@ -22,6 +22,10 @@ class DatabaseSeeder extends Seeder
           );
         });
       });
+
+      $this->call([
+        VoteablesTableSeeder::class
+      ]);
 //      factory(App\Question::class, 10)->create();
     }
 }
